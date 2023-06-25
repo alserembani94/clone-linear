@@ -1,21 +1,27 @@
 import Button from "@/components/atom/Button";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const titleRef = useRef(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!titleRef.current) {
+          return;
+        }
+
         if (entry.isIntersecting) {
-          // Do something when the element is visible
+          titleRef.current.style.top = "0px";
+        } else {
+          titleRef.current.style.top = "100px";
         }
       },
       {
         root: null,
-        rootMargin: "0px",
+        rootMargin: "-100px",
         threshold: 0.5,
       }
     );
@@ -65,7 +71,12 @@ export default function Home() {
 
       <section className="w-full pt-20 flex justify-center bg-gradient-section-2">
         <div className="grid grid-cols-3 grid-rows-2 w-full max-w-screen-xl gap-4">
-          <h1 ref={titleRef}>Aun cak!</h1>
+          <h1
+            ref={titleRef}
+            className="relative transition-all ease-in-out duration-300"
+          >
+            Aun cak!
+          </h1>
           <p>
             {new Intl.NumberFormat("en-MY", {
               style: "currency",
@@ -73,6 +84,22 @@ export default function Home() {
               minimumFractionDigits: 0,
             }).format(20)}
           </p>
+        </div>
+      </section>
+      <section className="w-full pt-20 flex justify-center bg-gradient-section-2">
+        <div className="grid grid-cols-3 grid-rows-2 w-full max-w-screen-xl gap-4">
+          <div className="col-span-2 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
+          <div className="col-span-1 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
+          <div className="col-span-1 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
+          <div className="col-span-2 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
+        </div>
+      </section>
+      <section className="w-full pt-20 flex justify-center bg-gradient-section-2">
+        <div className="grid grid-cols-3 grid-rows-2 w-full max-w-screen-xl gap-4">
+          <div className="col-span-2 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
+          <div className="col-span-1 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
+          <div className="col-span-1 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
+          <div className="col-span-2 rounded-[60px] border border-[#3333336A] bg-gradient-to-b from-[#44444400] to-[#44444456] h-[500px]"></div>
         </div>
       </section>
     </DefaultLayout>
